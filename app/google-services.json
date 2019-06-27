@@ -1,0 +1,167 @@
+{
+  "project_info": {
+    "project_number": "269005954486",
+    "firebase_url": "https://indriverappclon.firebaseio.com",
+    "project_id": "indriverappclon",
+    "storage_bucket": "indriverappclon.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:269005954486:android:13c3c6a65bcbec53",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "269005954486-kr3op7p0qscg1ej7m4tfnrh8s4ds7oj3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.myapplication",
+            "certificate_hash": "4440e5598b6eec7f333afde59012ab13469b9ce7"
+          }
+        },
+        {
+          "client_id": "269005954486-37qepl5cv4sre96nu3lm13f0lqlssdfk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBWMEZ7qoqtTZX-1fNL4OzjK6Qct2Kv56w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "269005954486-37qepl5cv4sre96nu3lm13f0lqlssdfk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:269005954486:android:a848b60a85789f18",
+        "android_client_info": {
+          "package_name": "com.mallacreativa.certificacion"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "269005954486-3pn3o5utqm64jompvh6miri7fca6bnoc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mallacreativa.certificacion",
+            "certificate_hash": "60e43c9340a88be8d28064a2fe6580b0c72448f7"
+          }
+        },
+        {
+          "client_id": "269005954486-tj3dd1jj7s62irm0e6o5cm31mbc3objd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mallacreativa.certificacion",
+            "certificate_hash": "a8fdde2fab59f3818bba461a5d6a399302c5bd00"
+          }
+        },
+        {
+          "client_id": "269005954486-37qepl5cv4sre96nu3lm13f0lqlssdfk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBWMEZ7qoqtTZX-1fNL4OzjK6Qct2Kv56w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "269005954486-37qepl5cv4sre96nu3lm13f0lqlssdfk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:269005954486:android:42ffa5984e462feb",
+        "android_client_info": {
+          "package_name": "curso.carlos.indrive"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "269005954486-71j5lsvu65oqs6f47dkhtgq6baq7n2vd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "curso.carlos.indrive",
+            "certificate_hash": "e3aa165bb1400eca13a01743c9991bb85f290a09"
+          }
+        },
+        {
+          "client_id": "269005954486-37qepl5cv4sre96nu3lm13f0lqlssdfk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBWMEZ7qoqtTZX-1fNL4OzjK6Qct2Kv56w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "269005954486-37qepl5cv4sre96nu3lm13f0lqlssdfk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:269005954486:android:0bb5a912d11ece35",
+        "android_client_info": {
+          "package_name": "curso.carlos.indrivefordriver"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "269005954486-9eq1j7plqhme3hdfaq085q44p0tfe6fh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "curso.carlos.indrivefordriver",
+            "certificate_hash": "e3aa165bb1400eca13a01743c9991bb85f290a09"
+          }
+        },
+        {
+          "client_id": "269005954486-37qepl5cv4sre96nu3lm13f0lqlssdfk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBWMEZ7qoqtTZX-1fNL4OzjK6Qct2Kv56w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "269005954486-37qepl5cv4sre96nu3lm13f0lqlssdfk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">InDriveForDriver</string>
+    <string name="label_create_new_account">Create New Driver Account</string>
+    <string name="label_enter">Enter</string>
+    <string name="hint_username">Username</string>
+    <string name="hint_password">Password</string>
+    <string name="create_account">Create account</string>
+    <string name="login_to_indrive">LogIn to InDrive</string>
+    <string name="action_profile">Mi perfil</string>
+    <string name="action_about">Acerca de..</string>
+    <string name="action_logout">Salir</string>
+</resources>
