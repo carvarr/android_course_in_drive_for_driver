@@ -20,4 +20,13 @@
             android:textSize="20sp"
             android:padding="20dp"/>
 
+    <ImageButton
+            android:id="@+id/btn_pick_service"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/pick_service"
+            android:src="@mipmap/hand"
+            style="?android:attr/borderlessButtonStyle"
+            />
+
 </LinearLayout>

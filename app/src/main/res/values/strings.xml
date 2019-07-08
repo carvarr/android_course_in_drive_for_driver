@@ -9,4 +9,5 @@
     <string name="action_profile">Mi perfil</string>
     <string name="action_about">Acerca de..</string>
     <string name="action_logout">Salir</string>
+    <string name="pick_service">pick a service</string>
 </resources>
