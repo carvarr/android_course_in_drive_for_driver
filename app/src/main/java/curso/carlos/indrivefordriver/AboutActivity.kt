@@ -13,6 +13,6 @@ class AboutActivity : AppCompatActivity() {
         setContentView(myWebView)
 
         myWebView.webViewClient = WebViewClient()
-        myWebView.loadUrl("http://www.facebook.com")
+        myWebView.loadUrl(getString(R.string.webview_about_url))
     }
 }

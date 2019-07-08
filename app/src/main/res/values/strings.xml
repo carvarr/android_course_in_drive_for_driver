@@ -10,4 +10,5 @@
     <string name="action_about">Acerca de..</string>
     <string name="action_logout">Salir</string>
     <string name="pick_service">pick a service</string>
+    <string name="webview_about_url">https://sites.google.com/view/inappdriverclon/p%C3%A1gina-principal</string>
 </resources>
