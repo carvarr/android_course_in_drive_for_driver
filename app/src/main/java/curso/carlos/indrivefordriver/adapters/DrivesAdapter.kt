@@ -1,6 +1,7 @@
 package curso.carlos.indrivefordriver.adapters
 
 import android.content.Context
+import android.media.Image
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -25,6 +26,8 @@ class DrivesAdapter(val items: ArrayList<DriveItem>, val context: Context) : Rec
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder?.tvDistance?.text = items[position].distance
         holder?.tvPrice?.text = items[position].price
+        holder?.driverName.text = items[position].drivernameDemand
+        holder?.mountDemand.text = items[position].demand
         holder?.driveId = items[position].id
 
         if(items[position].status) {
@@ -38,7 +41,10 @@ class ViewHolder : RecyclerView.ViewHolder, View.OnClickListener {
     // Holds the TextView that will add each animal to
     val tvDistance: TextView
     val tvPrice: TextView
+    val driverName: TextView
+    val mountDemand: TextView
     val pickButton: ImageButton
+    val offerButton: ImageButton
 
     var driveId: String = ""
 
@@ -46,12 +52,21 @@ class ViewHolder : RecyclerView.ViewHolder, View.OnClickListener {
         tvDistance = view.tv_distance
         tvPrice = view.tv_price
         pickButton = view.btn_pick_service
+        driverName = view.driver_name
+        mountDemand = view.service_mount
+        offerButton = view.btn_offer
 
         pickButton.setOnClickListener(this)
+        offerButton.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
-        MainActivity.pickService(driveId)
+
+        when(v?.id) {
+            R.id.btn_pick_service -> MainActivity.pickService(driveId)
+            R.id.btn_offer -> MainActivity.offerService(driveId, v?.context)
+        }
+
     }
 
     fun setButtonInvisible() {

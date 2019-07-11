@@ -1,5 +1,7 @@
 package curso.carlos.indrivefordriver
 
+import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -13,6 +15,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import curso.carlos.indrivefordriver.adapters.DrivesAdapter
 import curso.carlos.indrivefordriver.gateway.LoginActivity
+import curso.carlos.indrivefordriver.helpers.DialogHelper
 import curso.carlos.indrivefordriver.helpers.DistanceManager
 import curso.carlos.indrivefordriver.helpers.PriceCalculator
 import curso.carlos.indrivefordriver.helpers.VersionManager
@@ -148,7 +151,8 @@ class MainActivity : AppCompatActivity() {
                 driveItem.distance = DistanceManager.distanceText(distance)
                 driveItem.price =
                     "${"%.0f".format(PriceCalculator.calculateByDistance(distance))} $"
-
+                driveItem.demand = "${drive?.service_demand.service_mount.toString()} $"
+                driveItem.drivernameDemand = drive?.service_demand.getDriverName()
                 drives.add(driveItem)
 
                 rv_drives.adapter?.notifyDataSetChanged()
@@ -204,6 +208,14 @@ class MainActivity : AppCompatActivity() {
             database.child("addresess").child(driveId).child("status").setValue(true)
             database.child("addresess").child(driveId).child("drivername")
                 .setValue(currentUser?.email)
+        }
+
+        fun offerService(driveId: String, context: Context) {
+            DialogHelper.askForServiceMount(context, DialogInterface.OnClickListener { dialog, which ->
+                dialog.dismiss()
+            }, DialogInterface.OnClickListener { dialog, which ->
+                dialog.dismiss()
+            })
         }
     }
 }
