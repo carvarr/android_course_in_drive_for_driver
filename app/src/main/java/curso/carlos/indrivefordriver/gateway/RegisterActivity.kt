@@ -9,6 +9,8 @@ import android.widget.EditText
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import curso.carlos.indrivefordriver.R
+import curso.carlos.indrivefordriver.model.Driver
+import curso.carlos.indrivefordriver.services.DriverService
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -31,6 +33,14 @@ class RegisterActivity : AppCompatActivity() {
                     if (task.isSuccessful) {
                         Log.d(TAG, "createUserWithEmail:success")
                         Toast.makeText(baseContext, "User created successfully", Toast.LENGTH_SHORT).show()
+                        val driverService = DriverService()
+                        val driver = Driver()
+                        val user = task.result?.user
+
+                        driver.name = user?.email.toString()
+                        driver.origin_lat = "37.422"
+                        driver.origin_long = "-122.084"
+                        driverService.createDriver(user?.uid.toString(), driver)
                         val intent = Intent(applicationContext, LoginActivity::class.java)
                         startActivity(intent)
                     } else {

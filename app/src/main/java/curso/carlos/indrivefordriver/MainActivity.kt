@@ -10,6 +10,7 @@ import android.support.v4.app.NotificationManagerCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.CheckBox
 import android.widget.ImageButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
@@ -21,6 +22,8 @@ import curso.carlos.indrivefordriver.helpers.PriceCalculator
 import curso.carlos.indrivefordriver.helpers.VersionManager
 import curso.carlos.indrivefordriver.model.Drive
 import curso.carlos.indrivefordriver.model.DriveItem
+import curso.carlos.indrivefordriver.model.Driver
+import curso.carlos.indrivefordriver.services.DriverService
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -30,6 +33,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var database: DatabaseReference
     private lateinit var auth: FirebaseAuth
     private lateinit var childEventListener: ChildEventListener
+    private lateinit var driverService: DriverService
+    private lateinit var checkAvailability: CheckBox
     val VERSION_KEY = "driver_version"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,6 +47,8 @@ class MainActivity : AppCompatActivity() {
             redirectToLogin()
             return
         }
+
+        driverService = DriverService()
 
         // Firebase reference
         database = FirebaseDatabase.getInstance().reference
@@ -81,7 +88,12 @@ class MainActivity : AppCompatActivity() {
         rv_drives.layoutManager = LinearLayoutManager(this)
         rv_drives.adapter = DrivesAdapter(drives, this)
 
-        loadDrives()
+        checkAvailability =  findViewById(R.id.check_availability)
+        checkAvailability.setOnCheckedChangeListener { buttonView, isChecked ->
+            changeAvailability(isChecked)
+        }
+
+        checkAvailability()
     }
 
     // Menu configuration
@@ -185,6 +197,12 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    private fun unloadDrives() {
+        database.removeEventListener(childEventListener)
+        drives.clear()
+        rv_drives.adapter?.notifyDataSetChanged()
+    }
+
     /**
      * send notification when a new drive is placed
      */
@@ -198,6 +216,28 @@ class MainActivity : AppCompatActivity() {
         with(NotificationManagerCompat.from(this)) {
             notify(id, builder.build())
         }
+    }
+
+
+    private fun checkAvailability(){
+        driverService.listenDriverInfo(auth.currentUser?.uid.toString(), object: ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val driver = dataSnapshot.getValue(Driver::class.java)
+                checkAvailability.isChecked = driver!!.status
+
+                if(checkAvailability.isChecked) {
+                    loadDrives()
+                } else {
+                    unloadDrives()
+                }
+            }
+
+            override fun onCancelled(p0: DatabaseError) {}
+        })
+    }
+
+    private fun changeAvailability(available: Boolean) {
+        driverService.changeDriverAvailability(auth.currentUser?.uid.toString(), available)
     }
 
     companion object {
