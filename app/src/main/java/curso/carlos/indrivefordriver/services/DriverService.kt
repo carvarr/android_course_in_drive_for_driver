@@ -22,6 +22,11 @@ class DriverService {
         database.child(PATH_DRIVER_GLOBAL).child("${PATH_DRIVER_INNER}_$uuid").child("status").setValue(availability)
     }
 
+    fun changeDriverLocation(uuid: String, lat: String, lon: String) {
+        database.child(PATH_DRIVER_GLOBAL).child("${PATH_DRIVER_INNER}_$uuid").child("origin_lat").setValue(lat)
+        database.child(PATH_DRIVER_GLOBAL).child("${PATH_DRIVER_INNER}_$uuid").child("origin_long").setValue(lon)
+    }
+
     fun dispose() {
         database.removeEventListener(driverInfoRef)
     }

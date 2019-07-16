@@ -1,12 +1,19 @@
 package curso.carlos.indrivefordriver
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.location.Location
+import android.location.LocationListener
+import android.location.LocationManager
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v4.app.ActivityCompat
 import android.support.v4.app.NotificationCompat
 import android.support.v4.app.NotificationManagerCompat
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
@@ -35,6 +42,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var childEventListener: ChildEventListener
     private lateinit var driverService: DriverService
     private lateinit var checkAvailability: CheckBox
+    private lateinit var locationManager: LocationManager
+
     val VERSION_KEY = "driver_version"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,6 +56,9 @@ class MainActivity : AppCompatActivity() {
             redirectToLogin()
             return
         }
+
+        locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        getUserLocation()
 
         driverService = DriverService()
 
@@ -240,14 +252,63 @@ class MainActivity : AppCompatActivity() {
         driverService.changeDriverAvailability(auth.currentUser?.uid.toString(), available)
     }
 
+    private fun getUserLocation() {
+        if (ContextCompat.checkSelfPermission(
+                this,
+                android.Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(
+                    android.Manifest.permission.ACCESS_FINE_LOCATION,
+                    android.Manifest.permission.ACCESS_COARSE_LOCATION
+                ), REQUEST_ACCESS_PERMISSION
+            )
+        } else {
+            requestUserLocation()
+        }
+    }
+
+    @SuppressLint("MissingPermission")
+    fun requestUserLocation() {
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0.1f, object: LocationListener {
+            override fun onLocationChanged(location: Location?) {
+                driverService.changeDriverLocation(auth.currentUser?.uid.toString(), location?.latitude.toString(), location?.longitude.toString())
+            }
+
+            override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {}
+
+            override fun onProviderEnabled(provider: String?) {}
+
+            override fun onProviderDisabled(provider: String?) {}
+
+        })
+
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        when (requestCode) {
+            REQUEST_ACCESS_PERMISSION -> {
+                // If request is cancelled, the result arrays are empty.
+                if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                    //requestUserLocation()
+                }
+
+                return
+            }
+        }
+    }
+
     companion object {
+        private const val REQUEST_ACCESS_PERMISSION = 1
+
         fun pickService(driveId: String) {
             val currentUser = FirebaseAuth.getInstance().currentUser
             val database = FirebaseDatabase.getInstance().reference
 
             database.child("addresess").child(driveId).child("status").setValue(true)
-            database.child("addresess").child(driveId).child("drivername")
-                .setValue(currentUser?.email)
+            database.child("addresess").child(driveId).child("drivername").setValue(currentUser?.uid)
         }
 
         fun offerService(driveId: String, context: Context) {
