@@ -29,6 +29,11 @@ class DrivesAdapter(val items: ArrayList<DriveItem>, val context: Context) : Rec
         holder?.driverName.text = items[position].drivernameDemand
         holder?.mountDemand.text = items[position].demand
         holder?.driveId = items[position].id
+        holder?.userId = items[position].userId
+        holder?.destination_lat= items[position].destination_lat
+        holder?.destination_lon = items[position].destination_long
+        holder?.origin_lat = items[position].origin_lat
+        holder?.origin_lon = items[position].origin_long
 
         if(items[position].status) {
             holder?.setButtonInvisible()
@@ -47,6 +52,11 @@ class ViewHolder : RecyclerView.ViewHolder, View.OnClickListener {
     val offerButton: ImageButton
 
     var driveId: String = ""
+    var userId: String = ""
+    var destination_lat: String = ""
+    var destination_lon: String = ""
+    var origin_lat: String = ""
+    var origin_lon: String = ""
 
     constructor(view: View) : super(view) {
         tvDistance = view.tv_distance
@@ -63,7 +73,7 @@ class ViewHolder : RecyclerView.ViewHolder, View.OnClickListener {
     override fun onClick(v: View?) {
 
         when(v?.id) {
-            R.id.btn_pick_service -> MainActivity.pickService(driveId)
+            R.id.btn_pick_service -> MainActivity.pickService(userId, driveId, destination_lat, destination_lon, origin_lat, origin_lon, mountDemand.text.toString().toInt())
             R.id.btn_offer -> MainActivity.offerService(driveId, v?.context)
         }
 

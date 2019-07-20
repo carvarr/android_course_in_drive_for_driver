@@ -7,6 +7,7 @@ class Drive {
     var origin_lat: String = ""
     var origin_long: String = ""
     var status: Boolean = false
+    var username = ""
     var service_demand = MountDemand()
 }
 
@@ -17,6 +18,11 @@ class DriveItem {
     var status: Boolean = false
     var demand: String = ""
     var drivernameDemand: String = ""
+    var userId = ""
+    var destination_lat: String = ""
+    var destination_long: String = ""
+    var origin_lat: String = ""
+    var origin_long: String = ""
 }
 
 class MountDemand {

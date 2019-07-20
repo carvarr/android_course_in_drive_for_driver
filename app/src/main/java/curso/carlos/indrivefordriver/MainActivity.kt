@@ -30,6 +30,7 @@ import curso.carlos.indrivefordriver.helpers.VersionManager
 import curso.carlos.indrivefordriver.model.Drive
 import curso.carlos.indrivefordriver.model.DriveItem
 import curso.carlos.indrivefordriver.model.Driver
+import curso.carlos.indrivefordriver.model.History
 import curso.carlos.indrivefordriver.services.DriverService
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -175,8 +176,14 @@ class MainActivity : AppCompatActivity() {
                 driveItem.distance = DistanceManager.distanceText(distance)
                 driveItem.price =
                     "${"%.0f".format(PriceCalculator.calculateByDistance(distance))} $"
-                driveItem.demand = "${drive?.service_demand.service_mount.toString()} $"
+                driveItem.demand = drive?.service_demand.service_mount.toString()
                 driveItem.drivernameDemand = drive?.service_demand.getDriverName()
+                driveItem.userId = drive.username
+                driveItem.destination_lat = drive.destination_lat
+                driveItem.destination_long = drive.destination_long
+                driveItem.origin_lat = drive.origin_lat
+                driveItem.origin_long = drive.origin_long
+
                 drives.add(driveItem)
 
                 rv_drives.adapter?.notifyDataSetChanged()
@@ -303,12 +310,25 @@ class MainActivity : AppCompatActivity() {
     companion object {
         private const val REQUEST_ACCESS_PERMISSION = 1
 
-        fun pickService(driveId: String) {
+        fun pickService(userId: String, driveId: String, destination_lat: String,
+                        destination_lon: String, origin_lat: String, origin_lon: String,
+                        mountDemand: Int) {
             val currentUser = FirebaseAuth.getInstance().currentUser
             val database = FirebaseDatabase.getInstance().reference
 
             database.child("addresess").child(driveId).child("status").setValue(true)
             database.child("addresess").child(driveId).child("drivername").setValue(currentUser?.uid)
+
+            //almacenar historico
+            val driverService = DriverService()
+            val history = History()
+            history.carfare = mountDemand
+            history.destination_lat = destination_lat
+            history.destination_lon = destination_lon
+            history.origin_lat = origin_lat
+            history.origin_lon = origin_lon
+            history.service_id = "${userId}${driveId}"
+            driverService.saveDriveHistory(userId, history)
         }
 
         fun offerService(driveId: String, context: Context) {

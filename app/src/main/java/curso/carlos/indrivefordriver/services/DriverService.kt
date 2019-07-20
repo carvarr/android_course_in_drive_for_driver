@@ -4,6 +4,8 @@ import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import curso.carlos.indrivefordriver.model.Driver
+import curso.carlos.indrivefordriver.model.History
+import curso.carlos.indrivefordriver.repositories.RouteRepository
 
 class DriverService {
 
@@ -25,6 +27,11 @@ class DriverService {
     fun changeDriverLocation(uuid: String, lat: String, lon: String) {
         database.child(PATH_DRIVER_GLOBAL).child("${PATH_DRIVER_INNER}_$uuid").child("origin_lat").setValue(lat)
         database.child(PATH_DRIVER_GLOBAL).child("${PATH_DRIVER_INNER}_$uuid").child("origin_long").setValue(lon)
+    }
+
+    fun saveDriveHistory(userId: String, history: History) {
+        val historyRepo = RouteRepository()
+        historyRepo.saveHistory(userId, history)
     }
 
     fun dispose() {
